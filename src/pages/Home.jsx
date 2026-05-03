@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
+import News from "../components/News"
 import Slider1 from "../components/Slider1";
 
 
@@ -17,6 +18,7 @@ export default function Home() {
       <Products />
       <Deal />
       <Slider />
+      <News/>
       <Slider1 />
       <Footer /> 
     </>
