@@ -8,6 +8,7 @@ import Slider from "../components/Slider";
 import News from "../components/News"
 import Slider1 from "../components/Slider1";
 import AboutHistory from "../components/AboutHistory";
+import Deal2 from "../components/Deal2";
 
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
       <Deal />
       <Slider />
       <AboutHistory/>
+      <Deal2/>
       <News/>
       <Slider1 />
       <Footer /> 

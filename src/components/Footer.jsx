@@ -75,9 +75,9 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
+      <div className="border-t border-gray-600"></div>
       <div
-        className="max-w-7xl mx-auto px-8 border-t px-6 sm:px-10 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3"
-        style={{ borderColor: "#1e3344" }}
+        className="max-w-7xl mx-auto px-8  sm:px-10 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3"
       >
         <p className="text-xs text-gray-400 text-center sm:text-left">
           Copyrights © 2019 -{" "}

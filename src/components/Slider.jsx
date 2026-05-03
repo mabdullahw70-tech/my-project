@@ -6,7 +6,7 @@ import { Autoplay, } from "swiper/modules";
 
 export default function Slider() {
   return (
-    <section className="bg-[#f5f5f5] py-20 px-4 text-center">
+    <section className="bg-gray-50 py-20 px-4 text-center">
       <div className="max-w-3xl mx-auto">
         <Swiper
           modules={[Autoplay, ]}
