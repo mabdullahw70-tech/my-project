@@ -15,7 +15,7 @@ export default function AboutHistory() {
         {/* Left Column: Custom Video Player Facade */}
         <div>
           <div
-            className="relative w-96 aspect-square rounded-lg overflow-hidden shadow-md cursor-pointer group bg-gray-200"
+            className="relative w-full aspect-square rounded-lg overflow-hidden shadow-md cursor-pointer group bg-gray-200"
             onClick={() => setIsPlaying(true)}
           >
             {!isPlaying ? (
