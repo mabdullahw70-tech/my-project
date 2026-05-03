@@ -1,7 +1,6 @@
 import { FaUser, FaCalendarAlt } from "react-icons/fa";
- import Button from "./Button";
+import Button from "./Button";
 import Container from "./Container";
-
 
 const news = [
   {
@@ -27,7 +26,7 @@ const news = [
 export default function News() {
   return (
     <Container>
-      <div className="py-16 flex items-center flex-col">
+      <div className="py-16 flex flex-col items-center">
         {/* Heading */}
         <div className="max-w-3xl mx-auto text-center mb-16 px-4">
           <h2 className="text-4xl font-bold text-gray-900">
@@ -42,26 +41,28 @@ export default function News() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 md:px-8">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-0 sm:px-4 md:px-8">
           {news.map((n) => (
             <div
               key={n.id}
-              className="shadow rounded-lg overflow-hidden hover:shadow-xl transition duration-300 bg-white"
+              className="w-full shadow rounded-lg overflow-hidden hover:shadow-xl transition duration-300 bg-white"
             >
+              {/* Image */}
               <img
                 src={n.img}
                 alt={n.title}
                 className="w-full h-52 object-cover"
               />
 
-              <div className="p-5">
+              {/* Content */}
+              <div className="p-5 text-left">
                 {/* Title */}
-                <h3 className="font-bold text-black text-lg leading-snug">
+                <h3 className="font-bold text-black text-lg leading-snug text-left">
                   {n.title}
                 </h3>
 
                 {/* Admin + Date */}
-                <div className="flex items-center text-gray-500 text-sm gap-4 mt-3">
+                <div className="flex items-center text-gray-500 text-xs sm:text-sm gap-4 mt-3 whitespace-nowrap">
                   <div className="flex items-center gap-2">
                     <FaUser className="text-gray-400" />
                     <span>Admin</span>
@@ -74,7 +75,7 @@ export default function News() {
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-gray-500 mt-3 leading-relaxed">
+                <p className="text-sm text-gray-500 mt-3 leading-relaxed text-left">
                   {n.desc}
                 </p>
 
@@ -89,6 +90,8 @@ export default function News() {
             </div>
           ))}
         </div>
+
+        {/* Button */}
         <div className="mt-20">
           <Button>More News</Button>
         </div>
