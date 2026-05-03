@@ -9,7 +9,6 @@ export default function Ourteam() {
         <h2 className="text-4xl font-bold text-gray-900">
           Our <span className="text-[#f97316]">Team</span>
         </h2>
-
         <div className="w-16 h-[3px] bg-[#f97316] mx-auto mt-3 mb-6"></div>
 
         <p className="text-gray-500 text-center  text-sm md:text-base leading-relaxed">
