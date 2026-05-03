@@ -77,7 +77,7 @@ export default function Hero() {
             />
 
             <div
-              className={`absolute inset-0 z-10 flex flex-col items-center lg:items-end justify-center max-w-7xl mx-auto px-8 text-center lg:text-right ${
+              className={`absolute inset-0 z-10 flex flex-col items-center lg:items-end justify-center max-w-7xl mx-auto px-20 text-center lg:text-right ${
                 activeIndex === 1 ? "animate-fade-up" : ""
               }`}
             >
@@ -110,7 +110,7 @@ export default function Hero() {
             />
 
             <div
-              className={`absolute inset-0 z-10 flex flex-col items-center lg:items-start justify-center max-w-7xl mx-auto px-8 text-center lg:text-left ${
+              className={`absolute inset-0 z-10 flex flex-col items-center lg:items-start justify-center max-w-7xl mx-auto px-20 text-center lg:text-left ${
                 activeIndex === 2 ? "animate-fade-up" : ""
               }`}
             >
