@@ -31,14 +31,14 @@ export default function Ourteam() {
             <p className="text-gray-500">Farmer</p>
           </div>
 
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3 text-white">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c]  hover:text-orange-500 rounded-full">
               <FaFacebookF size={14} />
             </div>
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c]  hover:text-orange-500 rounded-full">
               <FaTwitter size={14} />
             </div>
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c]  hover:text-orange-500 rounded-full">
               <FaInstagram size={14} />
             </div>
           </div>
@@ -56,14 +56,14 @@ export default function Ourteam() {
             <p className="text-gray-500">Farmer</p>
           </div>
 
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
-              <FaFacebookF size={14} />
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3 text-white">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c]  hover:text-orange-500 rounded-full">
+              <FaFacebookF size={14}  hover:text-orange-500/>
             </div>
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c] hover:text-orange-500 rounded-full">
               <FaTwitter size={14} />
             </div>
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c] hover:text-orange-500 rounded-full">
               <FaInstagram size={14} />
             </div>
           </div>
@@ -81,14 +81,14 @@ export default function Ourteam() {
             <p className="text-gray-500">Farmer</p>
           </div>
 
-          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+          <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex gap-3 text-white">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c] hover:text-orange-500 rounded-full">
               <FaFacebookF size={14} />
             </div>
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c] hover:text-orange-500 rounded-full">
               <FaTwitter size={14} />
             </div>
-            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] text-white rounded-full">
+            <div className="w-10 h-10 flex items-center justify-center bg-[#f97316] hover:bg-[#1a202c] hover:text-orange-500 rounded-full">
               <FaInstagram size={14} />
             </div>
           </div>
