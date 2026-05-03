@@ -8,11 +8,6 @@ export default function App() {
     <>
      <Home/>
       
-      {/* <Testimonial />
-      <About />
-      <Banner />
-      <News /> */}
-      
     </>
   );
 }
