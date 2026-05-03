@@ -6,6 +6,8 @@ import Navbar from "../components/Navbar";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
 import Slider1 from "../components/Slider1";
+import News from "../components/News";
+import AboutHistory from "../components/AboutHistory";
 
 
 export default function Home() {
@@ -17,6 +19,8 @@ export default function Home() {
       <Products />
       <Deal />
       <Slider />
+      <AboutHistory/>
+      <News />
       <Slider1 />
       <Footer /> 
     </>
