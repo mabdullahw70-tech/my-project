@@ -1,0 +1,81 @@
+import { useState, useEffect } from "react";
+import Container from "./Container";
+import logo from "../assets/fruitkhalogo.png";
+
+export default function Navbar() {
+  const [sticky, setSticky] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setSticky(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+
+    // cleanup (important)
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        sticky ? "bg-[#1a202c] shadow" : "bg-transparent"
+      }`}
+    >
+      {/* NAV CONTENT */}
+      <Container>
+        <div className="flex justify-between items-center py-4">
+          {/* Logo */}
+          <img className="h-8 lg:h-12 " src={logo} alt="logo" />
+
+          {/* Desktop Menu (only lg and above) */}
+          <div className="hidden lg:flex gap-6 text-white font-bold">
+            {["Home", "About", "Pages", "News", "Contact", "Shop"].map(
+              (item) => (
+                <a key={item} href="#" className="hover:text-orange-500">
+                  {item}
+                </a>
+              )
+            )}
+          </div>
+
+          {/* Desktop Icons */}
+          <div className="hidden lg:flex gap-4 text-white text-lg">
+            <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
+            <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
+          </div>
+
+          {/* Mobile + Tablet Button */}
+          <button
+            className="lg:hidden text-white text-2xl"
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            <i className={`fa-solid ${menuOpen ? "fa-xmark" : "fa-bars"}`}></i>
+          </button>
+        </div>
+      </Container>
+
+      {/* Mobile + Tablet Menu (Full Width) */}
+      <div
+        className={`lg:hidden bg-[#1a202c] text-white px-8 overflow-hidden transition-all duration-300 ${
+          menuOpen ? "max-h-96 py-4" : "max-h-0"
+        }`}
+      >
+        {["Home", "About", "Pages", "News", "Contact", "Shop"].map((item) => (
+          <a
+            key={item}
+            href="#"
+            className="block py-2 hover:text-orange-500"
+            onClick={() => setMenuOpen(false)}
+          >
+            {item}
+          </a>
+        ))}
+
+        {/* Mobile Icons */}
+        <div className="flex gap-4 pt-4 text-lg">
+          <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
+          <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
+        </div>
+      </div>
+    </div>
+  );
+}
