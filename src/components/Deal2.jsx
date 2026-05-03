@@ -1,6 +1,10 @@
+import Container from "./Container"
+
 export default function Deal2() {
   return (
-    <div className="relative w-full overflow-hidden  bg-gray-100 flex items-center min-h-[200px] sm:min-h-[260px] md:min-h-[300px]">
+    <div className=" bg-gray-100 ">
+    <Container>
+    <div className="relative w-full overflow-hidden flex items-center min-h-[200px] sm:min-h-[260px] md:min-h-[300px]">
       {/* Left Text Content */}
       <div className="relative z-10 w-[55%] sm:w-[60%] px-8 sm:px-8 md:px-9 py-8 sm:py-12">
         {/* Headline */}
@@ -63,6 +67,8 @@ export default function Deal2() {
           }}
         />
       </div>
+    </div>
+    </Container>
     </div>
   );
 }

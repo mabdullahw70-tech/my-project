@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Container from "./Container";
 import logo from "../assets/fruitkhalogo.png";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [sticky, setSticky] = useState(false);
@@ -8,11 +9,20 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => setSticky(window.scrollY > 50);
+
     window.addEventListener("scroll", handleScroll);
 
-    // cleanup (important)
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const menuItems = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Pages", path: "/pages" },
+    { name: "News", path: "/news" },
+    { name: "Contact", path: "/contact" },
+    { name: "Shop", path: "/shop" },
+  ];
 
   return (
     <div
@@ -20,21 +30,22 @@ export default function Navbar() {
         sticky ? "bg-[#1a202c] shadow" : "bg-transparent"
       }`}
     >
-      {/* NAV CONTENT */}
       <Container>
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <img className="h-8 lg:h-12 " src={logo} alt="logo" />
+          <img className="h-8 lg:h-12" src={logo} alt="logo" />
 
-          {/* Desktop Menu (only lg and above) */}
+          {/* Desktop Menu */}
           <div className="hidden lg:flex gap-6 text-white font-bold">
-            {["Home", "About", "Pages", "News", "Contact", "Shop"].map(
-              (item) => (
-                <a key={item} href="#" className="hover:text-orange-500">
-                  {item}
-                </a>
-              )
-            )}
+            {menuItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="hover:text-orange-500"
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
 
           {/* Desktop Icons */}
@@ -43,7 +54,7 @@ export default function Navbar() {
             <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
           </div>
 
-          {/* Mobile + Tablet Button */}
+          {/* Mobile Button */}
           <button
             className="lg:hidden text-white text-2xl"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -53,21 +64,21 @@ export default function Navbar() {
         </div>
       </Container>
 
-      {/* Mobile + Tablet Menu (Full Width) */}
+      {/* Mobile Menu */}
       <div
         className={`lg:hidden bg-[#1a202c] text-white px-8 overflow-hidden transition-all duration-300 ${
           menuOpen ? "max-h-96 py-4" : "max-h-0"
         }`}
       >
-        {["Home", "About", "Pages", "News", "Contact", "Shop"].map((item) => (
-          <a
-            key={item}
-            href="#"
+        {menuItems.map((item) => (
+          <Link
+            key={item.name}
+            to={item.path}
             className="block py-2 hover:text-orange-500"
             onClick={() => setMenuOpen(false)}
           >
-            {item}
-          </a>
+            {item.name}
+          </Link>
         ))}
 
         {/* Mobile Icons */}
