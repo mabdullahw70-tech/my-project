@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Newsingle from "./pages/Newsingle";
 import News from "./pages/News";
+import Cart from "./pages/Cart";
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/news" element={<News />} />
         {/*<Route path="/contact" element={<Contact />} />
         <Route path="/shop" element={<Shop />} /> */}
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );
