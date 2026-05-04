@@ -157,7 +157,7 @@ export default function CartTable() {
                 className="border rounded-lg w-full h-12 pl-4"
               />
 
-              <button className="mt-4 bg-orange-500 text-[#1a202c] rounded-full w-full sm:w-36 h-12 hover:bg-slate-800 hover:text-white">
+              <button className="mt-4 mb-12 bg-orange-500 text-[#1a202c] rounded-full w-full sm:w-36 h-12 hover:bg-slate-800 hover:text-white">
                 Apply
               </button>
             </div>
