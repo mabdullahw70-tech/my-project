@@ -7,6 +7,7 @@ import img4 from "../assets/product-img-4.jpg";
 import img5 from "../assets/product-img-5.jpg";
 import img6 from "../assets/product-img-6.jpg";
 
+
 const shopProducts = [
   { name: "Strawberry", price: 85, category: "strawberry", img: img1 },
   { name: "Berry", price: 70, category: "berry", img: img2 },

@@ -51,7 +51,7 @@ export default function Products({ products, showFilter = false }) {
               transition={{ duration: 0.4 }}
               className="w-full max-w-sm rounded-lg hover:scale-105 shadow-md hover:shadow-2xl transition"
             >
-              <img src={p.img} className="mx-auto h-auto" alt={p.name} />
+              <img src={p.img} className="mx-auto  h-auto" alt={p.name} />
               <h1 className="mt-8 text-2xl font-bold">{p.name}</h1>
               <p className="mt-3 mb-4 text-xl font-semibold">${p.price}</p>
               <Button>Add to Cart</Button>
