@@ -5,10 +5,10 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
-import News from "../components/News"
 import Slider1 from "../components/Slider1";
 import AboutHistory from "../components/AboutHistory";
 import Deal2 from "../components/Deal2";
+import NewsCard from "../components/NewsCard";
 
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
       <Slider />
       <AboutHistory/>
       <Deal2/>
-      <News/>
+      <NewsCard/>
       <Slider1 />
       <Footer /> 
     </>

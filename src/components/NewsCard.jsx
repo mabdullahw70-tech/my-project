@@ -23,7 +23,7 @@ const news = [
   },
 ];
 
-export default function News() {
+export default function NewsCard() {
   return (
     <Container>
       <div className="py-16 flex flex-col items-center">
