@@ -5,6 +5,7 @@ import Newsingle from "./pages/Newsingle";
 import News from "./pages/News";
 import Shop from "./pages/Shop";
 
+
 export default function App() {
   return (
     <Router>
@@ -15,7 +16,7 @@ export default function App() {
         {/* <Route path="/pages" element={<Pages />} /> */}
         <Route path="/news" element={<News />} />
         {/* <Route path="/contact" element={<Contact />} /> */}
-        <Route path="/shop" element={<Shop/>} /> 
+        <Route path="/shop" element={<Shop />} /> 
       </Routes>
     </Router>
   );

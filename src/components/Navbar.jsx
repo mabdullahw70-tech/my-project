@@ -79,8 +79,12 @@ export default function Navbar() {
 
           {/* Desktop Icons */}
           <div className="hidden lg:flex gap-4 text-white text-lg">
-            <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
-            <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
+            <Link to={"/search"}>
+              <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
+            </Link>
+            <Link to={"/cart"}>
+              <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
+            </Link>
           </div>
 
           {/* Mobile Button */}
