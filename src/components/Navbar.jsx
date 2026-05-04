@@ -28,7 +28,16 @@ export default function Navbar() {
       ],
     },
     { name: "Contact", path: "/contact" },
-    { name: "Shop", path: "/shop" },
+    {
+      name: "Shop",
+      path: "/shop",
+      submenu: [
+        { name: "Shops", path: "/shops" },
+        { name: "Checkout", path: "/checkout" },
+        { name: "Single Product", path: "/single-product" },
+        { name: "Cart", path: "/Cart" },
+      ],
+    },
   ];
 
   return (

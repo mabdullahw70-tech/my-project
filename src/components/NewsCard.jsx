@@ -9,7 +9,6 @@ export default function NewsCard({ heading, info, bottomline, news ,btn }) {
         <div className="max-w-3xl mx-auto text-center mb-16 px-4">
           <h2 className="text-4xl font-bold text-gray-900">{heading}</h2>
           {bottomline}
-
           <p className="text-gray-500 text-sm md:text-base leading-relaxed">
             {info}
           </p>

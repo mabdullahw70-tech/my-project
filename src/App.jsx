@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Newsingle from "./pages/Newsingle";
 import News from "./pages/News";
-
+import Shop from "./pages/Shop";
 
 export default function App() {
   return (
@@ -14,8 +14,8 @@ export default function App() {
         <Route path="/single-news" element={<Newsingle />} />
         {/* <Route path="/pages" element={<Pages />} /> */}
         <Route path="/news" element={<News />} />
-        {/*<Route path="/contact" element={<Contact />} />
-        <Route path="/shop" element={<Shop />} /> */}
+        {/* <Route path="/contact" element={<Contact />} /> */}
+        <Route path="/shop" element={<Shop/>} /> 
       </Routes>
     </Router>
   );

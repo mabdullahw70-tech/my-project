@@ -33,12 +33,18 @@ export default function Home() {
       desc: "Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.",
     },
   ];
+
+  const homeProducts = [
+    { name: "Strawberry", price: 85, img: "src/assets/product-img-1.jpg" },
+    { name: "Berry", price: 70, img: "src/assets/product-img-2.jpg" },
+    { name: "Lemon", price: 35, img: "src/assets/product-img-3.jpg" },
+  ];
   return (
     <>
       <Navbar />
       <Hero />
       <Features />
-      <Products />
+      <Products products={homeProducts} />
       <Deal />
       <Slider />
       <AboutHistory />
@@ -51,9 +57,19 @@ export default function Home() {
         }
         info="Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus
             nisi. Praesent vitae mattis nunc, egestas viverra eros."
-        bottomline={<><div className="w-16 h-[3px] bg-[#f97316] mx-auto mt-3 mb-6"></div></>}
+        bottomline={
+          <>
+            <div className="w-16 h-[3px] bg-[#f97316] mx-auto mt-3 mb-6"></div>
+          </>
+        }
         news={smallnews}
-        btn={<><div className="mt-20"><Button>More News</Button></div></>}
+        btn={
+          <>
+            <div className="mt-20">
+              <Button>More News</Button>
+            </div>
+          </>
+        }
       />
       <Slider1 />
       <Footer />
