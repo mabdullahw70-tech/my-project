@@ -1,4 +1,5 @@
-import Abouthero from "../components/Abouthero";
+
+import CommonHero from "../components/CommonHero";
 import Deal2 from "../components/Deal2";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
@@ -11,7 +12,7 @@ export default function About() {
   return (
     <div>
       <Navbar />
-      <Abouthero />
+      <CommonHero intro="WE SALE FRESH FRUITS" mainheading="About Us" />
       <Why />
       <Deal2 />
       <Ourteam />
