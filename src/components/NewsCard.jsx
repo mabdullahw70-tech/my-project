@@ -1,42 +1,17 @@
 import { FaUser, FaCalendarAlt } from "react-icons/fa";
-import Button from "./Button";
 import Container from "./Container";
 
-const news = [
-  {
-    id: 1,
-    img: "src/assets/Newimage1.png",
-    title: "You will likely vainly look for fruit for it in autnumn",
-    desc: "Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.",
-  },
-  {
-    id: 2,
-    img: "src/assets/Newimage2.png",
-    title: "You will likely vainly look for fruit for it in autnumn",
-    desc: "Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.",
-  },
-  {
-    id: 3,
-    img: "src/assets/Newimage3.png",
-    title: "You will likely vainly look for fruit for it in autnumn",
-    desc: "Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus nisi. Praesent vitae mattis nunc, egestas viverra eros.",
-  },
-];
-
-export default function NewsCard() {
+export default function NewsCard({ heading, info, bottomline, news ,btn }) {
   return (
     <Container>
       <div className="py-16 flex flex-col items-center">
         {/* Heading */}
         <div className="max-w-3xl mx-auto text-center mb-16 px-4">
-          <h2 className="text-4xl font-bold text-gray-900">
-            Our <span className="text-[#f97316]">News</span>
-          </h2>
-          <div className="w-16 h-[3px] bg-[#f97316] mx-auto mt-3 mb-6"></div>
+          <h2 className="text-4xl font-bold text-gray-900">{heading}</h2>
+          {bottomline}
 
           <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-            Vivamus lacus enim, pulvinar vel nulla sed, scelerisque rhoncus
-            nisi. Praesent vitae mattis nunc, egestas viverra eros.
+            {info}
           </p>
         </div>
 
@@ -92,9 +67,9 @@ export default function NewsCard() {
         </div>
 
         {/* Button */}
-        <div className="mt-20">
-          <Button>More News</Button>
-        </div>
+        
+          {btn}
+        
       </div>
     </Container>
   );
