@@ -19,7 +19,14 @@ export default function Navbar() {
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Pages", path: "/pages" },
-    { name: "News", path: "/news" },
+    {
+      name: "News",
+      path: "/news",
+      submenu: [
+        { name: "News", path: "/news" },
+        { name: "Single News", path: "/single-news" },
+      ],
+    },
     { name: "Contact", path: "/contact" },
     { name: "Shop", path: "/shop" },
   ];
@@ -38,13 +45,26 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden lg:flex gap-6 text-white font-bold">
             {menuItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className="hover:text-orange-500"
-              >
-                {item.name}
-              </Link>
+              <div key={item.name} className="relative group">
+                <Link to={item.path} className="hover:text-orange-500">
+                  {item.name}
+                </Link>
+
+                {/* Dropdown */}
+                {item.submenu && (
+                  <div className="absolute left-0 top-full bg-[#1a202c] hidden group-hover:block">
+                    {item.submenu.map((sub) => (
+                      <Link
+                        key={sub.name}
+                        to={sub.path}
+                        className="block px-4 py-2 hover:text-orange-500 whitespace-nowrap"
+                      >
+                        {sub.name}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
             ))}
           </div>
 
@@ -71,14 +91,28 @@ export default function Navbar() {
         }`}
       >
         {menuItems.map((item) => (
-          <Link
-            key={item.name}
-            to={item.path}
-            className="block py-2 hover:text-orange-500"
-            onClick={() => setMenuOpen(false)}
-          >
-            {item.name}
-          </Link>
+          <div key={item.name}>
+            <Link
+              to={item.path}
+              className="block py-2 hover:text-orange-500"
+              onClick={() => setMenuOpen(false)}
+            >
+              {item.name}
+            </Link>
+
+            {/* Mobile Submenu */}
+            {item.submenu &&
+              item.submenu.map((sub) => (
+                <Link
+                  key={sub.name}
+                  to={sub.path}
+                  className="block pl-4 py-1 text-sm hover:text-orange-500"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {sub.name}
+                </Link>
+              ))}
+          </div>
         ))}
 
         {/* Mobile Icons */}
