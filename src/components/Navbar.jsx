@@ -35,7 +35,7 @@ export default function Navbar() {
         { name: "Shops", path: "/shops" },
         { name: "Checkout", path: "/checkout" },
         { name: "Single Product", path: "/single-product" },
-        { name: "Cart", path: "/Cart" },
+        { name: "Cart", path: "/cart" },
       ],
     },
   ];
