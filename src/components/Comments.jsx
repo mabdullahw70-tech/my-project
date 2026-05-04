@@ -1,6 +1,7 @@
 import img1 from "../assets/sliderimage1.png";
 import img2 from "../assets/sliderimage2.png";
 import img3 from "../assets/sliderimage3.png";
+
 export function Comments() {
   const commentsData = [
     {
@@ -21,21 +22,26 @@ export function Comments() {
     <div>
       <h3 className="text-xl font-semibold mb-6">3 Comments</h3>
 
-      <div className="space-y-16">
+      <div className="space-y-14">
         {commentsData.map((item, i) => (
-          <div key={i} className={`flex gap-4 ${i === 1 ? "ml-10" : ""}`}>
+          <div key={i} className={`flex gap-4 ${i === 1 ? "md:ml-10" : ""}`}>
             {/* Image */}
             <img
               src={item.img}
               alt={item.name}
-              className="w-14 h-14  rounded-full object-cover"
+              className="w-14 h-14 rounded-full object-cover"
             />
+
             {/* Content */}
             <div>
-              <div className="flex items-center gap-2 text-sm">
-                <h4 className=" font-semibold text-black ">{item.name}</h4>
+              <div className="flex flex-wrap items-center gap-2 text-sm">
+                <h4 className="font-semibold text-black">{item.name}</h4>
+
                 <span className="text-gray-400">April 20, 2020</span>
-                <button className="text-xs text-black hover:!text-orange-500">reply</button>
+
+                <button className="text-xs text-black hover:text-orange-500 transition">
+                  reply
+                </button>
               </div>
 
               <p className="text-gray-600 text-sm mt-1">
