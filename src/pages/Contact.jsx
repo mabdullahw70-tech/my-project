@@ -2,6 +2,7 @@ import Navbar from "../components/Navbar";
 import CommonHero from "../components/CommonHero";
 import Footer from "../components/Footer";
 import ContactDetail from "../components/ContactDetail";
+import ContactLocation from "../components/ContactLocation";
 
 export default function Contact() {
   return (
@@ -9,6 +10,7 @@ export default function Contact() {
       <Navbar />
       <CommonHero intro="Get 24/7 Support" mainheading="Contact Us" />
       <ContactDetail/>
+      <ContactLocation/>
       <Footer />
     </div>
   );
