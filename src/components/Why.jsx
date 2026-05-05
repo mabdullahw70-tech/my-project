@@ -1,4 +1,4 @@
-
+import { FaTruck, FaDollarSign, FaBoxOpen, FaUndo } from "react-icons/fa";
 export default function Why() {
   return (
     <section className="py-24 px-9 md:px-9 lg:px-15 bg-white">
@@ -14,8 +14,8 @@ export default function Why() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
             {/* Box 1 */}
             <div className="flex gap-4">
-              <div className=" w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500">
-                🚚
+              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500 text-xl">
+                <FaTruck />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Home Delivery</h3>
@@ -28,8 +28,8 @@ export default function Why() {
 
             {/* Box 2 */}
             <div className="flex gap-4">
-              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500">
-                💵
+              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500 text-xl">
+                <FaDollarSign />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Best Price</h3>
@@ -42,8 +42,8 @@ export default function Why() {
 
             {/* Box 3 */}
             <div className="flex gap-4">
-              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500">
-                📦
+              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500 text-xl">
+                <FaBoxOpen />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Custom Box</h3>
@@ -56,8 +56,8 @@ export default function Why() {
 
             {/* Box 4 */}
             <div className="flex gap-4">
-              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500">
-                🔄
+              <div className="w-14 h-14 aspect-square flex items-center justify-center border-2 border-dotted border-orange-500 rounded-full text-orange-500 text-xl">
+                <FaUndo />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">Quick Refund</h3>
