@@ -60,10 +60,10 @@ export default function ContactDetail() {
 
           {/* Right Side (empty for now) */}
           <div>
-            <div className="bg-slate-300 w-full h-full py-10 px-8 space-y-8">
+            <div className="bg-slate-200 w-full h-auto py-10 px-8 space-y-8">
               {/* Address */}
               <div className="flex items-start gap-4">
-                <i className="fa-solid fa-map text-xl mt-1"></i>
+                <i className="text-orange-400 fa-solid fa-map text-xl mt-1"></i>
                 <div>
                   <h1 className="text-xl font-bold">Shop Address</h1>
                   <p className="text-gray-700">
@@ -76,7 +76,7 @@ export default function ContactDetail() {
 
               {/* Hours */}
               <div className="flex items-start gap-4">
-                <i className="fa-solid fa-clock text-xl mt-1"></i>
+                <i className="text-orange-400 fa-solid fa-clock text-xl mt-1"></i>
                 <div>
                   <h1 className="text-xl font-bold">Shop Hours</h1>
                   <p className="text-gray-700">
@@ -88,7 +88,7 @@ export default function ContactDetail() {
 
               {/* Contact */}
               <div className="flex items-start gap-4">
-                <i className="fa-solid fa-address-book text-xl mt-1"></i>
+                <i className="text-orange-400 fa-solid fa-address-book text-xl mt-1"></i>
                 <div>
                   <h1 className="text-xl font-bold">Contact</h1>
                   <p className="text-gray-700">
