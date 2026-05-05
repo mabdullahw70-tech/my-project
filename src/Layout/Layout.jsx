@@ -7,16 +7,19 @@ export default function Layout() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    let timer;
+    const showLoader = setTimeout(() => {
+      setLoading(true); // 👈 delay ke baad show
+    }, 100);
 
-    setLoading(true);
-
-    timer = setTimeout(() => {
+    const hideLoader = setTimeout(() => {
       setLoading(false);
     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [location]);
+    return () => {
+      clearTimeout(showLoader);
+      clearTimeout(hideLoader);
+    };
+  }, [location.pathname]);
 
   return (
     <>

@@ -6,7 +6,6 @@ import Formcheck from "../components/Formcheck";
 import OrdersummaryCheck from "../components/Ordersummarycheck";
 import Slider1 from "../components/Slider1";
 import Footer from "../components/Footer";
-
 export default function Checkout() {
   const [openSection, setOpenSection] = useState("billing");
 
