@@ -34,7 +34,7 @@ export default function Navbar() {
       submenu: [
         { name: "Shops", path: "/shops" },
         { name: "Checkout", path: "/checkout" },
-        { name: "Single Product", path: "/single-product" },
+        { name: "SingleProduct", path: "/single-product" },
         { name: "Cart", path: "/cart" },
       ],
     },

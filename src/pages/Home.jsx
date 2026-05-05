@@ -44,7 +44,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <Features />
-      <Products products={homeProducts} />
+      <Products products={homeProducts} productHeading=<><span className="text-orange-500">Our</span> Product</> />
       <Deal />
       <Slider />
       <AboutHistory />

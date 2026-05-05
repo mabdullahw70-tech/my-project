@@ -7,6 +7,7 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Layout from "./layout/Layout"; // 👈 add this
 import Contact from "./pages/Contact";
+import SingleProduct from "./pages/SingleProduct";
 
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/single-product" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>

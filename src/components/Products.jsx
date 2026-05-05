@@ -3,7 +3,7 @@ import Button from "./Button";
 import Container from "./Container";
 import { motion } from "framer-motion";
 
-export default function Products({ products, showFilter = false }) {
+export default function Products({productHeading, products, showFilter = false }) {
   const [filter, setFilter] = useState("all");
 
   const filteredProducts =
@@ -16,7 +16,7 @@ export default function Products({ products, showFilter = false }) {
     <Container>
       <div className="py-16 text-center ">
         <h2 className="text-[#1a202c] text-3xl font-bold">
-          <span className="text-orange-500">Our</span> Product
+          {productHeading}
         </h2>
 
         {/* ✅ Filter Buttons (sirf shop page me show hon) */}
