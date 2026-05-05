@@ -33,6 +33,7 @@ export default function PrdoctDetail() {
               </p>
               <input
                 type="number"
+                min={1}
                 className="border w-24 h-12 text-center rounded-lg"
               />
               <div>
@@ -51,8 +52,9 @@ export default function PrdoctDetail() {
             </div>
           </div>
         </div>
-        <Products products={homeProducts} productHeading=<><span className="text-orange-500">Related</span> Product</>/>
+        
       </Container>
+      <Products products={homeProducts} productHeading=<><span className="text-orange-500">Related</span> Product</>/>
     </div>
   );
 }
