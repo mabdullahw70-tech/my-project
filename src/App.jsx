@@ -7,6 +7,7 @@ import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Layout from "./layout/Layout"; // 👈 add this
 import Contact from "./pages/Contact";
+import Checkout from "./pages/Checkout";
 
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
       </Routes>
     </Router>
