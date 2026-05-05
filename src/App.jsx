@@ -6,6 +6,7 @@ import News from "./pages/News";
 import Shop from "./pages/Shop";
 import Cart from "./pages/Cart";
 import Layout from "./layout/Layout"; // 👈 add this
+import Contact from "./pages/Contact";
 
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
           <Route path="/single-news" element={<Newsingle />} />
           {/* <Route path="/pages" element={<Pages />} /> */}
           <Route path="/news" element={<News />} />
-          {/* <Route path="/contact" element={<Contact />} /> */}
+          <Route path="/contact" element={<Contact />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
         </Route>
