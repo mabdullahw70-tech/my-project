@@ -8,7 +8,7 @@ export default function Layout() {
 
   useEffect(() => {
     const showLoader = setTimeout(() => {
-      setLoading(true); // 👈 delay ke baad show
+      setLoading(true); 
     }, 100);
 
     const hideLoader = setTimeout(() => {
