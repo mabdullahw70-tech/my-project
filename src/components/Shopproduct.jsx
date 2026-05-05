@@ -1,5 +1,4 @@
 import Products from "../components/Products";
-
 import img1 from "../assets/product-img-1.jpg";
 import img2 from "../assets/product-img-2.jpg";
 import img3 from "../assets/product-img-3.jpg";
