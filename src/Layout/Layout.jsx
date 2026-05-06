@@ -9,11 +9,11 @@ export default function Layout() {
   useEffect(() => {
     const showLoader = setTimeout(() => {
       setLoading(true); 
-    }, 100);
+    }, 50);
 
     const hideLoader = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 2000);
 
     return () => {
       clearTimeout(showLoader);
