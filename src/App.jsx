@@ -9,11 +9,13 @@ import Layout from "./layout/Layout";
 import Contact from "./pages/Contact";
 import SingleProduct from "./pages/SingleProduct";
 import Checkout from "./pages/Checkout";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 export default function App() {
   return (
     <Router>
+      <ScrollToTop/>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

@@ -7,8 +7,12 @@ import Ourteam from "../components/Ourteam";
 import Slider from "../components/Slider";
 import Slider1 from "../components/Slider1";
 import Why from "../components/Why";
+import { useEffect } from "react";
 
 export default function About() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Navbar />

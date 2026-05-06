@@ -6,7 +6,6 @@ import {
   FaDribbble,
   FaPaperPlane,
 } from "react-icons/fa";
-
 export default function Footer() {
   return (
     <footer style={{ backgroundColor: "#0d1f2d" }} className="text-white">
