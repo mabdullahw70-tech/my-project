@@ -76,18 +76,19 @@ export default function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-600"></div>
-      <div
-        className="max-w-7xl mx-auto px-8  sm:px-10 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3"
-      >
-        <p className="text-xs text-gray-400 text-center sm:text-left">
-          Copyrights © 2019 -{" "}
-          <span className="text-orange-500 font-medium">Imran Hossain</span>
-          , All Rights Reserved.
-          <br />
-          <br className="sm:hidden" /> Distributed By -{" "}
-          <span className="text-orange-500 font-medium">Themewagon</span>
-        </p>
+      <div className="max-w-7xl mx-auto px-8  sm:px-10 lg:px-10 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="text-xs text-gray-400  text-center md:text-left">
+          <p>
+            Copyrights © 2019 -{" "}
+            <span className="text-orange-500 font-medium">Imran Hossain</span>,
+            All Rights Reserved.
+          </p>
 
+          <p>
+            Distributed By -{" "}
+            <span className="text-orange-500 font-medium">Themewagon</span>
+          </p>
+        </div>
         {/* Social Icons */}
         <div className="flex items-center gap-4 text-gray-400">
           <FaFacebookF
