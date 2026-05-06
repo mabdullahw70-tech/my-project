@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import NewsCard from "../components/NewsCard";
 import PagePagination from "../components/PagePagination";
 import Slider1 from "../components/Slider1";
+import Aboutheroimg3 from "../assets/Aboutheroimg3.jpg";
 
 export default function News() {
   const bignews = [
@@ -47,7 +48,7 @@ export default function News() {
   return (
     <div>
       <Navbar />
-      <CommonHero intro="ORGANIC INFORMATION" mainheading="News Article" />
+      <CommonHero intro="ORGANIC INFORMATION" mainheading="News Article"  bgImage={Aboutheroimg3} />
       <NewsCard news={bignews} />
       <PagePagination />
       <Slider1 />

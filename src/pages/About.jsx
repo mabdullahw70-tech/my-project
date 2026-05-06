@@ -8,6 +8,7 @@ import Slider from "../components/Slider";
 import Slider1 from "../components/Slider1";
 import Why from "../components/Why";
 import { useEffect } from "react";
+import Aboutheroimg4 from "../assets/Aboutheroimg4.jpg";
 
 export default function About() {
   useEffect(() => {
@@ -16,7 +17,11 @@ export default function About() {
   return (
     <div>
       <Navbar />
-      <CommonHero intro="WE SALE FRESH FRUITS" mainheading="About Us" />
+      <CommonHero
+        intro="WE SALE FRESH FRUITS"
+        mainheading="About Us"
+        bgImage={Aboutheroimg4}
+      />
       <Why />
       <Deal2 />
       <Ourteam />
