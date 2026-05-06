@@ -6,6 +6,7 @@ import Formcheck from "../components/Formcheck";
 import OrdersummaryCheck from "../components/Ordersummarycheck";
 import Slider1 from "../components/Slider1";
 import Footer from "../components/Footer";
+import Aboutheroimg6 from "../assets/Aboutheroimg6.jpg";
 export default function Checkout() {
   const [openSection, setOpenSection] = useState("billing");
 
@@ -16,7 +17,7 @@ export default function Checkout() {
   return (
     <>
       <Navbar />
-      <CommonHero intro="Fresh and Organic" mainheading="Check Out Product" />
+      <CommonHero intro="Fresh and Organic" mainheading="Check Out Product" bgImage={Aboutheroimg6} />
 
       <div className="bg-gray-300 min-h-screen py-16">
         <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-8">
