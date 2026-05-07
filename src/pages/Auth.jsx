@@ -5,7 +5,6 @@ export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   // YE LINE ADD KARO
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#0f172a] flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16 lg:py-20">
       {/* Animated Background */}
