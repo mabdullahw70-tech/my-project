@@ -13,6 +13,15 @@ const Contact = lazy(() => import("./pages/Contact"));
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const Checkout = lazy(() => import("./pages/Checkout"));
 const Page404 = lazy(() => import("./pages/Page404"));
+const Auth = lazy(() => import("./pages/Auth"));
+
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Orders = lazy(() => import("./pages/Orders"));
+const Wishlist = lazy(() => import("./pages/Wishlist"));
+const Profile = lazy(() => import("./pages/Profile"));
+const Settings = lazy(() => import("./pages/Settings"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const DashboardLayout = lazy(() => import("./dashboard/DashboardLayout"));
 
 export default function App() {
   return (
@@ -32,6 +41,21 @@ export default function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<Page404 />} />
           </Route>
+
+          {/* Auth Page */}
+          <Route path="/auth" element={<Auth />} />
+
+          {/* Dashboard */}
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/orders" element={<Orders />} />
+            <Route path="/dashboard/wishlist" element={<Wishlist />} />
+            <Route path="/dashboard/profile" element={<Profile />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
+          </Route>
+
+          {/* Forgot Password */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </Suspense>
     </Router>

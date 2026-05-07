@@ -16,3 +16,109 @@
     display: none !important;
   }
 }
+@keyframes overlayFade {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+
+  to {
+    opacity: 1;
+    backdrop-filter: blur(10px);
+  }
+}
+
+@keyframes modalZoom {
+  from {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-overlayFade {
+  animation: overlayFade 0.45s ease forwards;
+}
+
+.animate-modalZoom {
+  animation: modalZoom 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+
+@keyframes authCard {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-authCard {
+  animation: authCard 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes formFade {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-formFade {
+  animation: formFade 0.7s ease;
+}
+
+@keyframes inputFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-inputFade {
+  animation: inputFade 0.4s ease;
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 10s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}

@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Container from "./Container";
 import logo from "../assets/fruitkhalogo.png";
 import { Link } from "react-router-dom";
+import SearchOverlay from "./SearchOverlay";
 
 export default function Navbar() {
   const [sticky, setSticky] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setSticky(window.scrollY > 50);
@@ -32,6 +34,7 @@ export default function Navbar() {
       ],
     },
     { name: "Contact", path: "/contact" },
+    
     {
       name: "Shop",
       path: "/shop",
@@ -82,12 +85,23 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Icons */}
-          <div className="hidden lg:flex gap-4 text-white text-lg">
-            <Link to={"/search"}>
-              <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
+          <div className="hidden lg:flex items-center gap-5 text-white">
+            {/* Search */}
+            <button className="text-xl" onClick={() => setSearchOpen(true)}>
+              <i className="hover:text-orange-500 transition fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            {/* Cart */}
+            <Link to={"/cart"} className="text-xl">
+              <i className="hover:text-orange-500 transition fa-solid fa-cart-arrow-down"></i>
             </Link>
-            <Link to={"/cart"}>
-              <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
+
+            {/* User */}
+            <Link
+              to="/auth"
+              className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-orange-500 hover:border-orange-500 transition-all duration-300"
+            >
+              <i className="fa-regular fa-user text-base"></i>
             </Link>
           </div>
 
@@ -134,10 +148,13 @@ export default function Navbar() {
 
         {/* Mobile Icons */}
         <div className="flex gap-4 pt-4 text-lg">
-          <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
+          <button onClick={() => setSearchOpen(true)}>
+            <i className="hover:text-orange-500 fa-solid fa-magnifying-glass"></i>
+          </button>
           <i className="hover:text-orange-500 fa-solid fa-cart-arrow-down"></i>
         </div>
       </div>
+      <SearchOverlay isOpen={searchOpen} setIsOpen={setSearchOpen} />
     </div>
   );
 }
