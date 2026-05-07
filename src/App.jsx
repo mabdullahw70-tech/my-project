@@ -10,12 +10,13 @@ import Contact from "./pages/Contact";
 import SingleProduct from "./pages/SingleProduct";
 import Checkout from "./pages/Checkout";
 import ScrollToTop from "./components/ScrollToTop";
+import Page404 from "./pages/Page404";
 
 
 export default function App() {
   return (
     <Router>
-       <ScrollToTop/> 
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/single-product" element={<SingleProduct />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="*" element={<Page404 />} />
         </Route>
       </Routes>
     </Router>

@@ -18,7 +18,11 @@ export default function Navbar() {
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
-    { name: "Pages", path: "/pages" },
+    {
+      name: "Pages",
+      path: "/pages",
+      submenu: [{ name: "404 Page", path: "/page-404" }],
+    },
     {
       name: "News",
       path: "/news",
