@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+  // YE LINE ADD KARO
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#0f172a] flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16 lg:py-20">
@@ -145,23 +147,28 @@ export default function Auth() {
             </div>
 
             {/* Password */}
+            {/* Password */}
             <div className="relative">
               <i className="fa-solid fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
 
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-14 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
               />
 
               <button
                 type="button"
+                onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-500 transition"
               >
-                <i className="fa-regular fa-eye"></i>
+                <i
+                  className={`fa-regular ${
+                    showPassword ? "fa-eye-slash" : "fa-eye"
+                  }`}
+                ></i>
               </button>
             </div>
-
             {/* Confirm Password */}
             {!isLogin && (
               <div className="relative animate-inputFade">
