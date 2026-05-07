@@ -1,31 +1,36 @@
-import { useLocation, Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+
 import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export default function Layout() {
   const location = useLocation();
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const showLoader = setTimeout(() => {
-      setLoading(true); 
-    }, 50);
+    const startLoader = setTimeout(() => {
+      setLoading(true);
+    }, 0);
 
-    const hideLoader = setTimeout(() => {
+    const stopLoader = setTimeout(() => {
       setLoading(false);
     }, 2000);
 
     return () => {
-      clearTimeout(showLoader);
-      clearTimeout(hideLoader);
+      clearTimeout(startLoader);
+      clearTimeout(stopLoader);
     };
   }, [location.pathname]);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
-      {loading && <Loader />}
       <Navbar />
       <Outlet />
       <Footer />
