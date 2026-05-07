@@ -1,14 +1,11 @@
-import Navbar from "../components/Navbar";
 import CommonHero from "../components/CommonHero";
 import ArticleSection from "../components/ArticleSection";
 import Slider1 from "../components/Slider1";
-import Footer from "../components/Footer";
 import Aboutheroimg2 from "../assets/Aboutheroimg2.jpg";
 
 export default function Newsingle() {
   return (
     <>
-      <Navbar />
       <CommonHero intro="READ THE DETAILS" mainheading="Single Article" bgImage={Aboutheroimg2} />
       <ArticleSection
         articleData={{
@@ -40,7 +37,6 @@ export default function Newsingle() {
         }}
       />
       <Slider1/>
-      <Footer/>
     </>
   );
 }

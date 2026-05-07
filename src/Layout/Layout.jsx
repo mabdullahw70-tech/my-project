@@ -1,6 +1,8 @@
 import { useLocation, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Layout() {
   const location = useLocation();
@@ -24,7 +26,9 @@ export default function Layout() {
   return (
     <>
       {loading && <Loader />}
+      <Navbar />
       <Outlet />
+      <Footer />
     </>
   );
 }

@@ -1,8 +1,6 @@
 import Deal from "../components/Deal";
 import Features from "../components/Features";
-import Footer from "../components/Footer";
 import Hero from "../components/Hero";
-import Navbar from "../components/Navbar";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
 import Slider1 from "../components/Slider1";
@@ -12,7 +10,7 @@ import NewsCard from "../components/NewsCard";
 import Button from "../components/Button";
 
 export default function Home() {
-  // news data
+  
       const smallnews = [
     {
       id: 1,
@@ -41,7 +39,6 @@ export default function Home() {
   ];
   return (
     <>
-      <Navbar />
       <Hero />
       <Features />
       <Products products={homeProducts} productHeading=<><span className="text-orange-500">Our</span> Product</> />
@@ -72,7 +69,6 @@ export default function Home() {
         }
       />
       <Slider1 />
-      <Footer />
     </>
   );
 }
