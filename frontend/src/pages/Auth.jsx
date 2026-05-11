@@ -1,10 +1,116 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   // YE LINE ADD KARO
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
+const clearError = (field) => {
+  setErrors((prev) => ({
+    ...prev,
+    [field]: "",
+  }));
+};
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let newErrors = {};
+
+    // Username Validation
+    if (!username.trim()) {
+      newErrors.username = "Username is required";
+    }
+
+    // Email Validation
+    if (!isLogin) {
+      if (!email.trim()) {
+        newErrors.email = "Email is required";
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        newErrors.email = "Enter a valid email";
+      }
+    }
+
+    // Password Validation
+    if (!password.trim()) {
+      newErrors.password = "Password is required";
+    } else if (!isLogin && password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    // Confirm Password
+    if (!isLogin && password !== confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
+
+    // Stop if errors
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      setTimeout(() => {
+        setErrors({});
+      }, 3000);
+      return;
+    }
+
+    setErrors({});
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/accounts/login/",
+          {
+            username,
+            password,
+          },
+        );
+
+        localStorage.setItem("access", response.data.access);
+        localStorage.setItem("refresh", response.data.refresh);
+
+        navigate("/dashboard");
+      } else {
+        await axios.post("http://127.0.0.1:8000/api/accounts/register/", {
+          username,
+          email,
+          password,
+        });
+
+        setIsLogin(true);
+      }
+    } catch (error) {
+      console.log(error);
+
+      if (error.response?.data?.detail) {
+        setErrors({
+          general: error.response.data.detail,
+        });
+      } else if (error.response?.data?.username) {
+        setErrors({
+          username: error.response.data.username[0],
+        });
+      } else if (error.response?.data?.email) {
+        setErrors({
+          email: error.response.data.email[0],
+        });
+      } else {
+        setErrors({
+          general: "Something went wrong",
+        });
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#0f172a] flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16 lg:py-20">
       {/* Animated Background */}
@@ -120,7 +226,12 @@ export default function Auth() {
           </div>
 
           {/* Form */}
-          <form className="space-y-4 sm:space-y-5">
+          {errors.general && (
+            <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm p-4 rounded-2xl mb-4">
+              {errors.general}
+            </div>
+          )}
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             {/* Full Name */}
             {!isLogin && (
               <div className="relative animate-inputFade">
@@ -128,9 +239,20 @@ export default function Auth() {
 
                 <input
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => {
+                    setUsername(e.target.value);
+
+                   clearError("username");
+                  }}
                   className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-5 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
                 />
+                {errors.username && (
+                  <p className="text-red-400 text-sm mt-2 ml-2">
+                    {errors.username}
+                  </p>
+                )}
               </div>
             )}
 
@@ -139,10 +261,33 @@ export default function Auth() {
               <i className="fa-regular fa-envelope absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
 
               <input
-                type="email"
-                placeholder="Email Address"
+                type="text"
+                placeholder={isLogin ? "Username" : "Email Address"}
+                value={isLogin ? username : email}
+                onChange={(e) => {
+                  if (isLogin) {
+                    setUsername(e.target.value);
+
+                   clearError("username");
+                  } else {
+                    setEmail(e.target.value);
+
+                   clearError("email");
+                  }
+                }}
                 className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-5 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
               />
+              {isLogin
+                ? errors.username && (
+                    <p className="text-red-400 text-sm mt-2 ml-2">
+                      {errors.username}
+                    </p>
+                  )
+                : errors.email && (
+                    <p className="text-red-400 text-sm mt-2 ml-2">
+                      {errors.email}
+                    </p>
+                  )}
             </div>
 
             {/* Password */}
@@ -153,8 +298,19 @@ export default function Auth() {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+
+                  clearError("password");
+                }}
                 className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-14 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
               />
+              {errors.password && (
+                <p className="text-red-400 text-sm mt-2 ml-2">
+                  {errors.password}
+                </p>
+              )}
 
               <button
                 type="button"
@@ -176,8 +332,19 @@ export default function Auth() {
                 <input
                   type="password"
                   placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+
+                   clearError("confirmPassword");
+                  }}
                   className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-5 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
                 />
+                {errors.confirmPassword && (
+                  <p className="text-red-400 text-sm mt-2 ml-2">
+                    {errors.confirmPassword}
+                  </p>
+                )}
               </div>
             )}
 
@@ -204,9 +371,22 @@ export default function Auth() {
             {/* Submit Button */}
             <button
               type="submit"
+              disabled={loading}
               className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-2xl text-sm sm:text-base tracking-wide font-semibold transition duration-300 hover:scale-[1.02] shadow-lg shadow-orange-500/20 mt-2"
             >
-              {isLogin ? "Login To Account" : "Create New Account"}
+              {loading ? (
+                <div className="flex items-center justify-center gap-3">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+
+                  <span>
+                    {isLogin ? "Logging in..." : "Creating Account..."}
+                  </span>
+                </div>
+              ) : (
+                <span>
+                  {isLogin ? "Login To Account" : "Create New Account"}
+                </span>
+              )}
             </button>
 
             {/* Divider */}
