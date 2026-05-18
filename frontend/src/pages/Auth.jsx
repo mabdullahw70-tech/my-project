@@ -26,18 +26,12 @@ const clearError = (field) => {
 
     let newErrors = {};
 
-    // Username Validation
-    if (!username.trim()) {
-      newErrors.username = "Username is required";
-    }
-
     // Email Validation
-    if (!isLogin) {
-      if (!email.trim()) {
-        newErrors.email = "Email is required";
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        newErrors.email = "Enter a valid email";
-      }
+    // Email Validation
+    if (!email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = "Enter a valid email";
     }
 
     // Password Validation
@@ -66,13 +60,17 @@ const clearError = (field) => {
 
     try {
       if (isLogin) {
+        console.log("LOGIN CLICKED");
+
         const response = await axios.post(
           "http://127.0.0.1:8000/api/accounts/login/",
           {
-            username,
+            email,
             password,
           },
         );
+
+        console.log("LOGIN RESPONSE:", response.data);
 
         localStorage.setItem("access", response.data.access);
         localStorage.setItem("refresh", response.data.refresh);
@@ -80,37 +78,28 @@ const clearError = (field) => {
         navigate("/dashboard");
       } else {
         await axios.post("http://127.0.0.1:8000/api/accounts/register/", {
-          username,
-          email,
+          username: username.toLowerCase().trim(),
+          email: email.toLowerCase().trim(),
           password,
         });
 
         setIsLogin(true);
       }
     } catch (error) {
-      console.log(error);
+      console.log("LOGIN ERROR:", error.response?.data);
 
-      if (error.response?.data?.detail) {
-        setErrors({
-          general: error.response.data.detail,
-        });
-      } else if (error.response?.data?.username) {
-        setErrors({
-          username: error.response.data.username[0],
-        });
-      } else if (error.response?.data?.email) {
-        setErrors({
-          email: error.response.data.email[0],
-        });
-      } else {
-        setErrors({
-          general: "Something went wrong",
-        });
-      }
+      const data = error.response?.data;
+
+      setErrors({
+        general:
+          data?.detail ||
+          data?.error ||
+          (typeof data === "string" ? data : "Login failed"),
+      });
     } finally {
       setLoading(false);
     }
-  };
+  };;
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#0f172a] flex items-center justify-center px-4 sm:px-6 py-10 sm:py-16 lg:py-20">
       {/* Animated Background */}
@@ -244,7 +233,7 @@ const clearError = (field) => {
                   onChange={(e) => {
                     setUsername(e.target.value);
 
-                   clearError("username");
+                    clearError("username");
                   }}
                   className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-5 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
                 />
@@ -262,32 +251,19 @@ const clearError = (field) => {
 
               <input
                 type="text"
-                placeholder={isLogin ? "Username" : "Email Address"}
-                value={isLogin ? username : email}
+                placeholder={isLogin ? "Email Address" : "Email Address"}
+                value={email}
                 onChange={(e) => {
-                  if (isLogin) {
-                    setUsername(e.target.value);
+                  setEmail(e.target.value);
 
-                   clearError("username");
-                  } else {
-                    setEmail(e.target.value);
-
-                   clearError("email");
-                  }
+                  clearError("email");
                 }}
                 className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-5 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
               />
-              {isLogin
-                ? errors.username && (
-                    <p className="text-red-400 text-sm mt-2 ml-2">
-                      {errors.username}
-                    </p>
-                  )
-                : errors.email && (
-                    <p className="text-red-400 text-sm mt-2 ml-2">
-                      {errors.email}
-                    </p>
-                  )}
+
+              {errors.email && (
+                <p className="text-red-400 text-sm mt-2 ml-2">{errors.email}</p>
+              )}
             </div>
 
             {/* Password */}
@@ -336,7 +312,7 @@ const clearError = (field) => {
                   onChange={(e) => {
                     setConfirmPassword(e.target.value);
 
-                   clearError("confirmPassword");
+                    clearError("confirmPassword");
                   }}
                   className="w-full bg-white/10 border border-white/10 rounded-2xl pl-14 pr-5 py-4 text-sm sm:text-[15px] text-white placeholder:text-gray-400 outline-none focus:border-orange-500 focus:bg-white/5 transition duration-300"
                 />
