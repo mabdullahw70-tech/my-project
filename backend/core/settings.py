@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'store',
      'accounts',
      'users',
+     'products',
     
     
 ]
@@ -157,3 +158,5 @@ SIMPLE_JWT = {
 
     'UPDATE_LAST_LOGIN': True,
 }
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
