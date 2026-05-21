@@ -36,7 +36,7 @@ export default function App() {
             <Route path="/news" element={<News />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
-            <Route path="/single-product" element={<SingleProduct />} />
+            <Route path="/single-product/:id" element={<SingleProduct />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="*" element={<Page404 />} />
