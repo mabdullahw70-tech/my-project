@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 
+
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Newsingle = lazy(() => import("./pages/Newsingle"));
@@ -22,6 +23,8 @@ const Profile = lazy(() => import("./pages/Profile"));
 const Settings = lazy(() => import("./pages/Settings"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const DashboardLayout = lazy(() => import("./dashboard/DashboardLayout"));
+// ... baaki imports ...
+const ProductManager = lazy(() => import("./pages/ProductManager"));
 
 export default function App() {
   return (
@@ -49,6 +52,11 @@ export default function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/dashboard/orders" element={<Orders />} />
+            <Route
+              path="/dashboard/products"
+              element={<ProductManager />}
+            />{" "}
+            {/* <--- Yeh add kiya */}
             <Route path="/dashboard/wishlist" element={<Wishlist />} />
             <Route path="/dashboard/profile" element={<Profile />} />
             <Route path="/dashboard/settings" element={<Settings />} />

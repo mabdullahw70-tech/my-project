@@ -34,14 +34,14 @@ export default function Navbar() {
       ],
     },
     { name: "Contact", path: "/contact" },
-    
+
     {
       name: "Shop",
       path: "/shop",
       submenu: [
         { name: "Shops", path: "/shops" },
         { name: "Checkout", path: "/checkout" },
-        { name: "SingleProduct", path: "/single-product" },
+        { name: "SingleProduct", path: "/single-product/1" },
         { name: "Cart", path: "/cart" },
       ],
     },

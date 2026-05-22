@@ -11,10 +11,16 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ✅ Quantity hamesha "1" se shuru hogi
+  const [quantity, setQuantity] = useState("1");
+  const [allProducts, setAllProducts] = useState([]);
+
   useEffect(() => {
+    // API se data mangwana
     axios
       .get("http://127.0.0.1:8000/api/shop-products/")
       .then((response) => {
+        setAllProducts(response.data);
         const foundProduct = response.data.find((p) => p.id === parseInt(id));
         setProduct(foundProduct);
         setLoading(false);
@@ -25,10 +31,45 @@ export default function ProductDetail() {
       });
   }, [id]);
 
+  // ✅ Related Products Logic
+  // ✅ Related Products Logic (Fixed)
+  // ✅ Related Products Logic (Fixed for Strawberry and all categories)
+  // ✅ Related Products Logic (Ultra-Strict Fix)
+  const relatedProducts = allProducts
+    .filter((p) => {
+      // 1. Agar product same hai, toh usay related mein mat dikhao
+      if (!product || p.id === product.id) return false;
+
+      // 2. Category nikalne ka sab se safe aur strict function
+      const extractCat = (cat) => {
+        if (!cat) return "";
+        if (typeof cat === "string") return cat.toLowerCase().trim();
+        if (typeof cat === "object" && cat.name)
+          return String(cat.name).toLowerCase().trim();
+        return "";
+      };
+
+      const pCat = extractCat(p.category);
+      const myCat = extractCat(product.category);
+
+      // 3. Agar category khali hai, ya ajeeb format mein hai, toh reject kar do
+      if (pCat === "" || myCat === "" || pCat === "[object object]")
+        return false;
+
+      // 4. Exact match check karo
+      return pCat === myCat;
+    })
+    .slice(0, 3);
+
   const handleAddToCart = async () => {
+    // String ko safely Number mein convert kiya
+    const finalQuantity =
+      quantity === "" || Number(quantity) < 1 ? 1 : Number(quantity);
+
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/cart/add/", {
         product_id: product.id,
+        quantity: finalQuantity,
       });
 
       toast.success(response.data.message || "Successfully added to cart!", {
@@ -92,20 +133,35 @@ export default function ProductDetail() {
             <div className="space-y-4">
               <h1 className="text-3xl font-semibold">{product?.name}</h1>
               <p>Per Kg</p>
-              <h2 className="text-3xl font-bold">${product?.price}</h2>
+
+              {/* ✅ Dynamic Price Calculation */}
+              <h2 className="text-3xl font-bold text-orange-500">
+                $
+                {(
+                  Number(product?.price) *
+                  (quantity === "" ? 1 : Number(quantity))
+                ).toFixed(2)}
+              </h2>
+
               <p className="text-gray-600">
-                {/* ✅ FIX: Yahan toLowerCase ki wajah se crash ho raha tha */}
                 Fresh and organic {product?.name?.toLowerCase() || "item"}{" "}
                 direct from the farms. Premium quality guaranteed to keep you
                 healthy and fresh!
               </p>
 
-              {/* QUANTITY */}
+              {/* ✅ Clean Input Logic without type mismatch */}
               <input
                 type="number"
-                min={1}
-                defaultValue={1}
-                className="border w-24 h-12 text-center rounded-lg outline-none"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                onBlur={() => {
+                  // Agar khali chor diya toh 1 wapas aa jayega
+                  if (quantity === "" || parseInt(quantity) < 1) {
+                    setQuantity("1");
+                  }
+                }}
+                className="border w-24 h-12 text-center rounded-lg outline-none focus:border-orange-500 transition"
               />
 
               {/* BUTTON */}
@@ -136,14 +192,17 @@ export default function ProductDetail() {
       </Container>
 
       {/* RELATED PRODUCTS */}
-      <Products
-        productHeading={
-          <>
-            <span className="text-orange-500">Related</span> Product
-          </>
-        }
-        showFilter={false}
-      />
+      {relatedProducts.length > 0 && (
+        <Products
+          productHeading={
+            <>
+              <span className="text-orange-500">Related</span> Products
+            </>
+          }
+          showFilter={false}
+          customData={relatedProducts}
+        />
+      )}
     </div>
   );
 }

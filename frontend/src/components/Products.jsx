@@ -3,27 +3,39 @@ import Button from "./Button";
 import Container from "./Container";
 import { motion } from "framer-motion";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Upar import karein
-// ✅ Step 1: Toast library import ki
+import { Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function Products({ productHeading, showFilter = false }) {
+export default function Products({
+  productHeading,
+  showFilter = false,
+  customData,
+}) {
   const [filter, setFilter] = useState("all");
-  const [products, setProducts] = useState([]);
+  // ✅ API se aane wale products ke liye alag state bana di
+  const [fetchedProducts, setFetchedProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/shop-products/")
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch((error) => console.log("Error fetching products:", error));
-  }, []);
+    // ✅ Agar customData NAHI hai, sirf tabhi API chalao (No synchronous setState here)
+    if (!customData) {
+      axios
+        .get("http://127.0.0.1:8000/api/shop-products/")
+        .then((response) => {
+          setFetchedProducts(response.data);
+        })
+        .catch((error) => console.log("Error fetching products:", error));
+    }
+  }, [customData]);
 
+  // ✅ ASLI FIX: React ke naye asool ke mutabiq!
+  // Agar customData mila hai toh seedha usay use karo, warna API wala data (fetchedProducts) use karo.
+  const displayProducts = customData ? customData : fetchedProducts;
+
+  // Ab filter 'products' ke bajaye 'displayProducts' par lagega
   const filteredProducts =
     filter === "all"
-      ? products
-      : products.filter((item) => {
+      ? displayProducts
+      : displayProducts.filter((item) => {
           const categoryName =
             typeof item.category === "object"
               ? item.category?.name
@@ -35,10 +47,10 @@ export default function Products({ productHeading, showFilter = false }) {
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/cart/add/", {
         product_id: productId,
+        quantity: 1,
       });
 
-      // ✅ FIX: Ab humne 'response' ko yahan use kar liya hai. Red line gayab ho jayegi!
-      toast.success(response.data.message, {
+      toast.success(response.data.message || "Successfully added to cart!", {
         position: "bottom-right",
         duration: 3000,
         style: {
@@ -55,7 +67,6 @@ export default function Products({ productHeading, showFilter = false }) {
       });
     } catch (error) {
       console.error("Error adding to cart:", error);
-
       toast.error("Failed to add product.", {
         position: "bottom-right",
         style: {
@@ -69,9 +80,7 @@ export default function Products({ productHeading, showFilter = false }) {
 
   return (
     <Container>
-      {/* ✅ Step 3: Toaster component yahan add kiya, yeh toasts ko render karega */}
       <Toaster />
-
       <div className="py-16 text-center ">
         <h2 className="text-[#1a202c] text-3xl font-bold">{productHeading}</h2>
 
@@ -80,7 +89,6 @@ export default function Products({ productHeading, showFilter = false }) {
             {["all", "strawberry", "lemon", "apple", "berry", "avocado"].map(
               (btn) => {
                 const value = btn.toLowerCase();
-
                 return (
                   <button
                     key={value}

@@ -1,50 +1,65 @@
+import { useState, useEffect, useCallback } from "react"; // ✅ useCallback import karein
+import axios from "axios";
+import NewOrderModal from "../components/NewOrderModal";
+
 export default function Orders() {
-  const orders = [
-    {
-      id: "#1234",
-      date: "12 May 2026",
-      status: "Delivered",
-      price: "$120",
-    },
-    {
-      id: "#1235",
-      date: "14 May 2026",
-      status: "Pending",
-      price: "$85",
-    },
-    {
-      id: "#1236",
-      date: "15 May 2026",
-      status: "Processing",
-      price: "$64",
-    },
-    {
-      id: "#1237",
-      date: "18 May 2026",
-      status: "Delivered",
-      price: "$210",
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [isNewOrderOpen, setIsNewOrderOpen] = useState(false);
+
+  // ✅ fetchOrders ko useCallback mein wrap kiya taake ye stable rahe
+  const fetchOrders = useCallback(() => {
+    axios
+      .get("http://127.0.0.1:8000/api/orders/")
+      .then((res) => {
+        setOrders(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Order fetch error:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  // ✅ Ab useEffect mein fetchOrders ko call karein
+  useEffect(() => {
+    fetchOrders();
+  }, [fetchOrders]);
+
+  const updateOrderStatus = (id, newStatus) => {
+    setOrders(
+      orders.map((o) => (o.id === id ? { ...o, status: newStatus } : o)),
+    );
+    axios
+      .post(`http://127.0.0.1:8000/api/update-order-status/`, {
+        order_id: id,
+        status: newStatus,
+      })
+      .catch((err) => console.error("Status update error:", err));
+  };
+
+  if (loading)
+    return (
+      <div className="text-white text-center py-20 text-xl">
+        Loading Orders...
+      </div>
+    );
 
   return (
     <div className="space-y-6">
-      {/* Heading */}
+      {/* ... baaki UI code wahi rahega ... */}
+
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <p className="text-orange-500 uppercase tracking-[3px] text-[11px] sm:text-xs mb-2">
+          <p className="text-orange-500 uppercase tracking-[3px] text-xs mb-2">
             Ecommerce Orders
           </p>
-
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
-            My Orders
-          </h1>
-
-          <p className="text-gray-400 mt-2 text-sm sm:text-base">
-            Track and manage all your recent orders easily.
-          </p>
+          <h1 className="text-4xl font-bold text-white">My Orders</h1>
         </div>
-
-        <button className="w-full sm:w-auto px-5 py-3 rounded-2xl bg-orange-500 hover:bg-orange-600 transition-all duration-300 text-white text-sm font-semibold shadow-lg shadow-orange-500/20">
+        <button
+          onClick={() => setIsNewOrderOpen(true)}
+          className="px-5 py-3 rounded-2xl bg-orange-500 hover:bg-orange-600 transition text-white font-semibold"
+        >
           New Order
         </button>
       </div>
@@ -54,110 +69,45 @@ export default function Orders() {
         <table className="w-full text-left">
           <thead className="bg-white/[0.05] border-b border-white/10">
             <tr>
-              <th className="px-6 py-5 text-sm font-semibold text-gray-300">
-                Order ID
-              </th>
-
-              <th className="px-6 py-5 text-sm font-semibold text-gray-300">
-                Date
-              </th>
-
-              <th className="px-6 py-5 text-sm font-semibold text-gray-300">
-                Status
-              </th>
-
-              <th className="px-6 py-5 text-sm font-semibold text-gray-300">
-                Price
-              </th>
+              <th className="px-6 py-5 text-gray-300">Order ID</th>
+              <th className="px-6 py-5 text-gray-300">Date</th>
+              <th className="px-6 py-5 text-gray-300">Status</th>
+              <th className="px-6 py-5 text-gray-300">Price</th>
             </tr>
           </thead>
-
           <tbody>
             {orders.map((order) => (
               <tr
                 key={order.id}
-                className="border-t border-white/10 hover:bg-white/[0.03] transition-all duration-300"
+                className="border-t border-white/10 hover:bg-white/[0.03]"
               >
-                <td className="px-6 py-5 text-white font-medium">{order.id}</td>
-
+                <td className="px-6 py-5 text-white">{order.id}</td>
                 <td className="px-6 py-5 text-gray-300">{order.date}</td>
-
                 <td className="px-6 py-5">
-                  <span
-                    className={`px-4 py-2 rounded-full text-xs font-semibold ${
-                      order.status === "Delivered"
-                        ? "bg-green-500/10 text-green-400"
-                        : order.status === "Pending"
-                          ? "bg-yellow-500/10 text-yellow-400"
-                          : "bg-blue-500/10 text-blue-400"
-                    }`}
+                  <select
+                    value={order.status}
+                    onChange={(e) =>
+                      updateOrderStatus(order.id, e.target.value)
+                    }
+                    className="bg-transparent text-orange-400 cursor-pointer outline-none"
                   >
-                    {order.status}
-                  </span>
+                    <option value="Pending">Pending</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Delivered">Delivered</option>
+                  </select>
                 </td>
-
-                <td className="px-6 py-5 text-white font-semibold">
-                  {order.price}
-                </td>
+                <td className="px-6 py-5 text-white">{order.price}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Mobile + Tablet Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:hidden">
-        {orders.map((order) => (
-          <div
-            key={order.id}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-xl p-5 shadow-lg"
-          >
-            {/* Top */}
-            <div className="flex items-center justify-between mb-5">
-              <div>
-                <p className="text-gray-400 text-xs mb-1">Order ID</p>
-
-                <h2 className="text-lg font-bold text-white">{order.id}</h2>
-              </div>
-
-              <div className="w-11 h-11 rounded-xl bg-orange-500/15 flex items-center justify-center text-orange-500">
-                <i className="fa-solid fa-box"></i>
-              </div>
-            </div>
-
-            {/* Info */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <p className="text-gray-400 text-sm">Date</p>
-
-                <p className="text-white text-sm font-medium">{order.date}</p>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <p className="text-gray-400 text-sm">Status</p>
-
-                <span
-                  className={`px-3 py-1 rounded-full text-[11px] font-semibold ${
-                    order.status === "Delivered"
-                      ? "bg-green-500/10 text-green-400"
-                      : order.status === "Pending"
-                        ? "bg-yellow-500/10 text-yellow-400"
-                        : "bg-blue-500/10 text-blue-400"
-                  }`}
-                >
-                  {order.status}
-                </span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <p className="text-gray-400 text-sm">Price</p>
-
-                <p className="text-white font-bold text-lg">{order.price}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <NewOrderModal
+        isOpen={isNewOrderOpen}
+        onClose={() => setIsNewOrderOpen(false)}
+        onOrderAdded={fetchOrders}
+      />
     </div>
   );
 }

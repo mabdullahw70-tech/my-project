@@ -12,6 +12,8 @@ import {
 export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
 
+  // DashboardSidebar.jsx mein jahan 'links' define kiya hai wahan ye update karein:
+
   const links = [
     {
       name: "Dashboard",
@@ -21,6 +23,12 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }) {
     {
       name: "Orders",
       path: "/dashboard/orders",
+      icon: <ShoppingBag size={20} />,
+    },
+    // ✅ Yahan new link add kar diya
+    {
+      name: "Products",
+      path: "/dashboard/products",
       icon: <ShoppingBag size={20} />,
     },
     {
@@ -39,7 +47,6 @@ export default function DashboardSidebar({ sidebarOpen, setSidebarOpen }) {
       icon: <Settings size={20} />,
     },
   ];
-
   return (
     <aside
       className={`

@@ -3,11 +3,15 @@ import Container from "./Container";
 import Button from "./Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function CartTable() {
-  const navigate = useNavigate(); // ✅ Yeh line add karein
-  const [cart, setCart] = useState([]); // ✅ Ab ye backend se aayega
+  const navigate = useNavigate();
+  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // ✅ Loading state specifically Refresh button ke liye
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // ✅ 1. Cart ka data Get karna
   const fetchCartItems = () => {
@@ -27,18 +31,52 @@ export default function CartTable() {
     fetchCartItems();
   }, []);
 
-  // ✅ 2. Quantity Update karna (Backend + Frontend)
+  // ✅ 1.5 Real E-commerce Refresh Functionality (Advanced)
+  // ✅ 1.5 Real E-commerce Refresh Functionality (Advanced)
+  const handleRefreshCart = () => {
+    setIsRefreshing(true); // Button ko loading mode me daal do
+
+    const refreshPromise = axios.get("http://127.0.0.1:8000/api/cart/");
+
+    toast.promise(
+      refreshPromise,
+      {
+        loading: "Updating cart...",
+        success: (response) => {
+          setCart(response.data);
+          setIsRefreshing(false); // Button wapas normal ho jayega
+          return "Cart updated successfully!";
+        },
+        error: (err) => {
+          // ✅ FIX: Yahan humne 'err' ko use kar liya, ab line foran gayab ho jayegi!
+          console.error("Refresh Error:", err);
+          setIsRefreshing(false);
+          return "Could not refresh cart.";
+        },
+      },
+      {
+        style: {
+          borderRadius: "10px",
+          background: "#1a202c",
+          color: "#fff",
+          padding: "16px",
+        },
+        success: {
+          iconTheme: { primary: "#f97316", secondary: "#fff" },
+        },
+      },
+    );
+  };
+  // ✅ 2. Quantity Update karna
   const updateQuantity = async (id, value) => {
     const newQuantity = Math.max(1, Number(value));
 
-    // Frontend par foran update karne ke liye (taake UI fast lage)
     setCart(
       cart.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item,
       ),
     );
 
-    // Backend ko update bhejna
     try {
       await axios.post("http://127.0.0.1:8000/api/cart/update/", {
         item_id: id,
@@ -49,11 +87,10 @@ export default function CartTable() {
     }
   };
 
-  // ✅ 3. Item Delete karna (Backend + Frontend)
+  // ✅ 3. Item Delete karna
   const removeItem = async (id) => {
     try {
       await axios.delete(`http://127.0.0.1:8000/api/cart/remove/${id}/`);
-      // Agar backend se delete ho jaye toh frontend se bhi nikaal do
       setCart(cart.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error removing item:", error);
@@ -65,7 +102,7 @@ export default function CartTable() {
     (sum, item) => sum + item.product_price * item.quantity,
     0,
   );
-  const shipping = cart.length > 0 ? 45 : 0; // Agar cart khali hai toh shipping 0 hogi
+  const shipping = cart.length > 0 ? 45 : 0;
   const total = subtotal + shipping;
 
   if (loading) {
@@ -78,8 +115,10 @@ export default function CartTable() {
 
   return (
     <div className="overflow-x-hidden">
+      {/* ✅ FIX: Toaster ki position Bottom-Right kar di taake Navbar par na aaye */}
+      <Toaster position="bottom-right" reverseOrder={false} />
+
       <Container>
-        {/* GRID */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-10">
           {/* 🛒 TABLE */}
           <div className="w-full overflow-x-auto">
@@ -111,7 +150,6 @@ export default function CartTable() {
                         </button>
                       </td>
 
-                      {/* ✅ Smart Image Rendering Logic */}
                       <td className="text-center">
                         <img
                           src={
@@ -134,7 +172,7 @@ export default function CartTable() {
                           onChange={(e) =>
                             updateQuantity(item.id, e.target.value)
                           }
-                          className="border w-16 text-center"
+                          className="border w-16 text-center outline-none focus:border-orange-500 rounded"
                         />
                       </td>
 
@@ -176,12 +214,24 @@ export default function CartTable() {
 
             {/* Buttons */}
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Button className="w-full sm:w-auto" onClick={fetchCartItems}>
-                Refresh Cart
+              {/* ✅ Real E-commerce Button jo click karne par Loading dikhata hai */}
+              <Button
+                className={`w-full sm:w-auto transition ${isRefreshing ? "opacity-70 cursor-not-allowed" : ""}`}
+                onClick={isRefreshing ? null : handleRefreshCart}
+              >
+                {isRefreshing ? (
+                  <>
+                    <i className="fa-solid fa-spinner fa-spin mr-2"></i>{" "}
+                    Refreshing...
+                  </>
+                ) : (
+                  "Refresh Cart"
+                )}
               </Button>
+
               <Button
                 className="w-full sm:w-auto bg-green-600 hover:bg-green-700"
-                onClick={() => navigate("/checkout")} // ✅ Button ko rasta bata diya
+                onClick={() => navigate("/checkout")}
               >
                 Check Out
               </Button>
@@ -192,7 +242,7 @@ export default function CartTable() {
               <input
                 type="text"
                 placeholder="Coupon"
-                className="border rounded-lg w-full h-12 pl-4"
+                className="border rounded-lg w-full h-12 pl-4 outline-none focus:border-orange-500"
               />
               <button className="mt-4 mb-12 bg-orange-500 text-[#1a202c] rounded-full w-full sm:w-36 h-12 hover:bg-slate-800 hover:text-white transition">
                 Apply

@@ -1,5 +1,6 @@
 # api/serializers.py
 from rest_framework import serializers
+from .models import Product, CartItem, Order  # ✅ Order ko yahan import karein
 from .models import Product, CartItem
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -16,3 +17,8 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ['id', 'product', 'quantity', 'product_name', 'product_price', 'product_image']
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
+        
