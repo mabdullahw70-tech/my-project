@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-
 from dotenv import load_dotenv
 import os
+import dj_database_url  # ADDED: To handle the live Neon database URL
 
 load_dotenv()
 
@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-ckl5=u#j9dpg7pl5r4b4t(8!whkrpv)(pf(d*+4q9!!=-#rssm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ADDED: Allow Render and Vercel to access the Django backend
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -52,13 +53,12 @@ INSTALLED_APPS = [
      'users',
      'products',
      'api',
-    
-    
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ADDED: For serving static files in production
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -90,16 +90,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# ADDED: This connects to your live Neon DB if Render provides the URL, 
+# otherwise it safely falls back to your local Postgres database!
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'fruitkha_db',
-        'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
-        'PORT': '5433',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres:12345@localhost:5432/fruitkha_db',
+        conn_max_age=600
+    )
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
@@ -136,6 +135,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# ADDED: These tell WhiteNoise where to gather and compress your admin panel styling files for Render
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -148,15 +151,10 @@ AUTH_USER_MODEL = 'users.CustomUser'
 from datetime import timedelta
 
 SIMPLE_JWT = {
-
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-
     'ROTATE_REFRESH_TOKENS': True,
-
     'BLACKLIST_AFTER_ROTATION': True,
-
     'UPDATE_LAST_LOGIN': True,
 }
 MEDIA_URL = '/media/'
