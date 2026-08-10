@@ -20,7 +20,7 @@ export default function Profile() {
     } finally {
       setLoading(false);
     }
-  };
+  };  
 
   return (
     <div className="p-8 bg-[#0b1220] rounded-3xl border border-white/10 text-white">
